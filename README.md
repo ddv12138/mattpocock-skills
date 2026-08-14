@@ -31,7 +31,7 @@ GitLab 会把 issue 描述里的 `- [ ]` / `- [x]` 渲染成任务清单，`N/M 
 ### 推荐：skills.sh（任何 agent 通用）
 
 ```bash
-npx skills@latest add ddv12138/mattpocook-skills
+npx skills@latest add ddv12138/mattpocock-skills
 ```
 
 选择要安装的技能，以及装到哪些 coding agent 上。**安装器会让你勾选技能——务必包含 `setup-matt-pocock-skills`。** 它以普通文件形式把技能写进你的项目，可自由编辑；想拉取最新改动时用 `npx skills update`。
@@ -43,7 +43,7 @@ npx skills@latest add ddv12138/mattpocook-skills
 本 fork 不在 Claude Code 官方 marketplace 里。想以插件方式安装（插件名 `mattpocock-skills-cn`，与官方同名插件区分，可共存），先添加本仓库自带的 marketplace：
 
 ```
-/plugin marketplace add ddv12138/mattpocook-skills
+/plugin marketplace add ddv12138/mattpocock-skills
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 

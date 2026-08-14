@@ -11,7 +11,7 @@ The skills.sh route works with every coding agent (Claude Code, Codex, and anyth
 <canonical-block name="skills-sh-whole-set">
 
 ```bash
-npx skills@latest add ddv12138/mattpocook-skills
+npx skills@latest add ddv12138/mattpocock-skills
 ```
 
 Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take — make sure `setup-matt-pocock-skills` is one of them.**
@@ -23,7 +23,7 @@ Pick the skills you want, and which coding agents to install them on. **The inst
 <canonical-block name="skills-sh-one-skill">
 
 ```bash
-npx skills@latest add ddv12138/mattpocook-skills --skill=<name>
+npx skills@latest add ddv12138/mattpocock-skills --skill=<name>
 ```
 
 ```bash
@@ -39,7 +39,7 @@ npx skills@latest update <name>
 Not in the official marketplace, so add the fork's own single-plugin marketplace first (`.claude-plugin/marketplace.json`), then install from it:
 
 ```
-/plugin marketplace add ddv12138/mattpocook-skills
+/plugin marketplace add ddv12138/mattpocock-skills
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 

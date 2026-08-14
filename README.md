@@ -31,18 +31,20 @@ GitLab 会把 issue 描述里的 `- [ ]` / `- [x]` 渲染成任务清单，`N/M 
 ### 推荐：skills.sh（任何 agent 通用）
 
 ```bash
-npx skills@latest add ddv12138/mattpocock-skills
+npx skills@latest add ddv12138/mattpocook-skills
 ```
 
 选择要安装的技能，以及装到哪些 coding agent 上。**安装器会让你勾选技能——务必包含 `setup-matt-pocock-skills`。** 它以普通文件形式把技能写进你的项目，可自由编辑；想拉取最新改动时用 `npx skills update`。
 
+> **已装过原项目（`mattpocock/skills`）？** 直接再跑一次上面的命令即可——两个仓库的技能同名同路径，fork 版本会**同名覆盖**（本 fork 与上游的唯一差别在 `setup-matt-pocock-skills`，其余技能内容一致），`skills-lock.json` 里每个技能的来源会切换为本 fork，之后 `npx skills update` 就从本 fork 拉更新。想彻底干净也可以先 `npx skills remove` 再装。
+
 ### Claude Code 插件（可选）
 
-本 fork 不在 Claude Code 官方 marketplace 里。想以插件方式安装，先添加本仓库自带的 marketplace：
+本 fork 不在 Claude Code 官方 marketplace 里。想以插件方式安装（插件名 `mattpocock-skills-cn`，与官方同名插件区分，可共存），先添加本仓库自带的 marketplace：
 
 ```
-/plugin marketplace add ddv12138/mattpocock-skills
-/plugin install mattpocock-skills@mattpocock
+/plugin marketplace add ddv12138/mattpocook-skills
+/plugin install mattpocock-skills-cn@mattpocock
 ```
 
 插件是只读、随发布更新的捆绑；skills.sh 写的是你可编辑的文件。**两条路二选一**——都装会得到两套技能。

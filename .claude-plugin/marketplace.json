@@ -1,13 +1,13 @@
 {
   "name": "mattpocock",
   "owner": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "ddv12138",
+    "url": "https://github.com/ddv12138"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin — 中文化 fork（按项目中文化 + 关闭前勾选验收标准）。",
   "plugins": [
     {
-      "name": "mattpocock-skills",
+      "name": "mattpocock-skills-cn",
       "source": "./",
       "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more.",
       "category": "engineering",

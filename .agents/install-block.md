@@ -36,6 +36,8 @@ npx skills@latest update <name>
 
 ## Claude Code — the plugin
 
+The plugin is named `mattpocock-skills-cn` to avoid colliding with the official `mattpocock-skills` — but the two cannot coexist (each ships the full skill set). If the official plugin is installed, uninstall it first (`claude plugin uninstall mattpocock-skills`) before installing this one.
+
 Not in the official marketplace, so add the fork's own single-plugin marketplace first (`.claude-plugin/marketplace.json`), then install from it:
 
 ```
@@ -43,7 +45,7 @@ Not in the official marketplace, so add the fork's own single-plugin marketplace
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 
-The plugin is a managed, read-only bundle; updates arrive when the fork ships them.
+`scripts/install-claude-plugin.sh` automates this: it detects the official plugin, asks before uninstalling it, then adds the marketplace and installs. The plugin is a managed, read-only bundle; updates arrive when the fork ships them.
 
 ## The two routes are exclusive
 

@@ -40,14 +40,22 @@ npx skills@latest add ddv12138/mattpocock-skills
 
 ### Claude Code 插件（可选）
 
-本 fork 不在 Claude Code 官方 marketplace 里。想以插件方式安装（插件名 `mattpocock-skills-cn`，与官方同名插件区分，可共存），先添加本仓库自带的 marketplace：
+本 fork 不在 Claude Code 官方 marketplace 里。插件名是 `mattpocock-skills-cn`，与官方 `mattpocock-skills` 区分开（不会同名冲突）——但**两者各带全套技能，不能共存**：若已装官方插件，先卸载再装本 fork。
+
+一键脚本（自动检测官方插件，询问是否先卸载，确认后完成安装）：
+
+```bash
+bash scripts/install-claude-plugin.sh
+```
+
+或手动：
 
 ```
 /plugin marketplace add ddv12138/mattpocock-skills
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 
-插件是只读、随发布更新的捆绑；skills.sh 写的是你可编辑的文件。**两条路二选一**——都装会得到两套技能。
+> **已装官方插件？** 手动方式请先 `/plugin uninstall mattpocock-skills` 再执行上面两条（脚本会自动完成）。插件是只读、随发布更新的捆绑；skills.sh 写的是你可编辑的文件。**两条路二选一**——都装会得到两套技能。
 
 ## 正常的工作流程
 

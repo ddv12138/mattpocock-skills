@@ -31,15 +31,13 @@ GitLab 会把 issue 描述里的 `- [ ]` / `- [x]` 渲染成任务清单，`N/M 
 ### 推荐：skills.sh（任何 agent 通用）
 
 ```bash
-npx skills@latest add ddv12138/mattpocock-skills
+bash scripts/install-skills.sh
 ```
 
-选择要安装的技能，以及装到哪些 coding agent 上。**安装器会让你勾选技能——务必包含 `setup-matt-pocock-skills`。** 它以普通文件形式把技能写进你的项目，可自由编辑；想拉取最新改动时用 `npx skills update`。
-
-**已装过原项目？** 用一键脚本：自动检测原项目安装，已装则询问是否彻底清理——同意就先删干净再装本 fork，拒绝则给建议退出、不动任何东西：
+脚本内部就是 `npx skills@latest add ddv12138/mattpocock-skills`，只在其前多一步检测：装过原项目会在交互中询问是否彻底清理——同意先删干净再装，拒绝则退出、不动任何东西；首次安装直接进入标准选择。技能以普通文件写入项目、可自由编辑；更新用 `npx skills update`。没有本仓库？先下载脚本再执行：
 
 ```bash
-bash scripts/install-skills.sh
+curl -sL https://raw.githubusercontent.com/ddv12138/mattpocock-skills/main/scripts/install-skills.sh -o install-skills.sh && bash install-skills.sh
 ```
 
 ### Claude Code 插件（可选）

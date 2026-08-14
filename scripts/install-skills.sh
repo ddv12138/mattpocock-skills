@@ -46,11 +46,11 @@ if [ -n "$PROJECT_NAMES$GLOBAL_NAMES" ]; then
   g_count=$(echo "$GLOBAL_NAMES" | wc -w | tr -d ' ')
   echo "检测到原项目（${UPSTREAM}）已安装 ${p_count} 个项目级 + ${g_count} 个全局技能。"
   echo "直接装本 fork 会留下子集残留，先删除原项目再装最干净。"
-  read -r -p "是否先用 npx 完全删除原项目，再安装本 fork？[y/N] " ans
+  read -r -p "是否彻底清理原项目（npx 完全删除）后安装本 fork？[y/N] " ans
   case "$ans" in
     [yY]*) ;;
     *)
-      echo "保留原项目，中止安装（避免两套技能混合）。" >&2
+      echo "建议：先清理原项目再安装本 fork，避免两套技能混合。本次未做任何改动，已退出。" >&2
       exit 1
       ;;
   esac
@@ -72,14 +72,14 @@ fi
 install_fork() {
   if [ -n "$GLOBAL_NAMES" ] && [ -n "$PROJECT_NAMES" ]; then
     echo "安装本 fork（项目级 + 全局）…"
-    npx -y skills@latest add "$FORK_REPO"
-    npx -y skills@latest add "$FORK_REPO" -g
+    npx skills@latest add "$FORK_REPO"
+    npx skills@latest add "$FORK_REPO" -g
   elif [ -n "$GLOBAL_NAMES" ]; then
     echo "安装本 fork（全局）…"
-    npx -y skills@latest add "$FORK_REPO" -g
+    npx skills@latest add "$FORK_REPO" -g
   else
     echo "安装本 fork（项目级）…"
-    npx -y skills@latest add "$FORK_REPO"
+    npx skills@latest add "$FORK_REPO"
   fi
 }
 install_fork

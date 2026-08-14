@@ -36,13 +36,13 @@ npx skills@latest add ddv12138/mattpocock-skills
 
 选择要安装的技能，以及装到哪些 coding agent 上。**安装器会让你勾选技能——务必包含 `setup-matt-pocock-skills`。** 它以普通文件形式把技能写进你的项目，可自由编辑；想拉取最新改动时用 `npx skills update`。
 
-**已装过原项目（`mattpocock/skills`）？** 推荐用一键脚本——检测到原项目已安装（项目级 `skills-lock.json` 或全局 `~/.agents/.skill-lock.json`）时，询问是否先用 npx 完全删除原项目，确认后自动完成切换（作用域跟随原安装）：
+**已装过原项目？** 用一键脚本：自动检测原项目安装，已装则询问是否彻底清理——同意就先删干净再装本 fork，拒绝则给建议退出、不动任何东西：
 
 ```bash
 bash scripts/install-skills.sh
 ```
 
-手动切换：装**全量**（`-s '*'` 或安装器里全选）会同名覆盖、`skills-lock.json` 来源全部切为本 fork，干净无残留；但**勾选子集**时，新选择里没包含的技能会残留（文件还在、来源仍是上游，`npx skills update` 还会继续从上游拉它）——尤其要包含 `setup-matt-pocock-skills`（本 fork 唯一与上游不同的技能）。想彻底干净：交互终端里先 `npx skills remove`（空格全选后回车）清空，再装。
+> 勾选子集时务必包含 `setup-matt-pocock-skills`（本 fork 唯一与上游不同的技能），否则它保持上游版。
 
 ### Claude Code 插件（可选）
 

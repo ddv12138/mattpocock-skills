@@ -45,8 +45,6 @@ Not in the official marketplace, so add the fork's own single-plugin marketplace
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 
-`scripts/install-claude-plugin.sh` automates this: it detects the official plugin, asks before uninstalling it, then adds the marketplace and installs. The plugin is a managed, read-only bundle; updates arrive when the fork ships them.
-
 ## The two routes are exclusive
 
 The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice — always say "pick one".

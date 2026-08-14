@@ -31,33 +31,23 @@ GitLab 会把 issue 描述里的 `- [ ]` / `- [x]` 渲染成任务清单，`N/M 
 ### 推荐：skills.sh（任何 agent 通用）
 
 ```bash
-bash scripts/install-skills.sh
+npx skills@latest add ddv12138/mattpocock-skills
 ```
 
-脚本内部就是 `npx skills@latest add ddv12138/mattpocock-skills`，只在其前多一步检测：装过原项目会在交互中询问是否彻底清理——同意先删干净再装，拒绝则退出、不动任何东西；首次安装直接进入标准选择。技能以普通文件写入项目、可自由编辑；更新用 `npx skills update`。没有本仓库？先下载脚本再执行：
+选择要安装的技能与 agent，以普通文件写入项目、可自由编辑；更新用 `npx skills update`。
 
-```bash
-curl -sL https://raw.githubusercontent.com/ddv12138/mattpocock-skills/main/scripts/install-skills.sh -o install-skills.sh && bash install-skills.sh
-```
+**之前用原项目（`mattpocock/skills`）？** 直接装即可——同名技能会被覆盖、来源自动切为本 fork。想彻底清理旧安装：`npx skills remove`（交互勾选要删的技能；原安装是全局的加 `-g`），删完再装。
 
 ### Claude Code 插件（可选）
 
-本 fork 不在 Claude Code 官方 marketplace 里。插件名是 `mattpocock-skills-cn`，与官方 `mattpocock-skills` 区分开（不会同名冲突）——但**两者各带全套技能，不能共存**：若已装官方插件，先卸载再装本 fork。
-
-一键脚本（自动检测官方插件，询问是否先卸载，确认后完成安装）：
-
-```bash
-bash scripts/install-claude-plugin.sh
-```
-
-或手动：
+本 fork 不在 Claude Code 官方 marketplace 里。插件名是 `mattpocock-skills-cn`，与官方 `mattpocock-skills` 区分开（不会同名冲突）——但**两者各带全套技能，不能共存**。
 
 ```
 /plugin marketplace add ddv12138/mattpocock-skills
 /plugin install mattpocock-skills-cn@mattpocock
 ```
 
-> **已装官方插件？** 手动方式请先 `/plugin uninstall mattpocock-skills` 再执行上面两条（脚本会自动完成）。插件是只读、随发布更新的捆绑；skills.sh 写的是你可编辑的文件。**两条路二选一**——都装会得到两套技能。
+> **已装官方插件？** 先 `/plugin uninstall mattpocock-skills` 再执行上面两条。插件是只读、随发布更新的捆绑；skills.sh 写的是你可编辑的文件。**两条路二选一**——都装会得到两套技能。
 
 ## 正常的工作流程
 

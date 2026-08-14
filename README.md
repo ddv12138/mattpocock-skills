@@ -42,8 +42,6 @@ npx skills@latest add ddv12138/mattpocock-skills
 bash scripts/install-skills.sh
 ```
 
-> 勾选子集时务必包含 `setup-matt-pocock-skills`（本 fork 唯一与上游不同的技能），否则它保持上游版。
-
 ### Claude Code 插件（可选）
 
 本 fork 不在 Claude Code 官方 marketplace 里。插件名是 `mattpocock-skills-cn`，与官方 `mattpocock-skills` 区分开（不会同名冲突）——但**两者各带全套技能，不能共存**：若已装官方插件，先卸载再装本 fork。

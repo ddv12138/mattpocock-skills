@@ -1,6 +1,6 @@
 ## What it does
 
-`setup-matt-pocock-skills` answers three questions about one repo — where issues live, what the triage labels are called, and where the domain docs sit — and records the answers as markdown files under `docs/agents/`.
+`setup-matt-pocock-skills` answers four questions about one repo — what language its skills should work in, where issues live, what the triage labels are called, and where the domain docs sit — and records the answers as markdown files under `docs/agents/`.
 
 Those files are the only thing that varies between repos. The skills themselves are identical everywhere; they read `docs/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why no skill file ever needs editing to point it somewhere else. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with zero changes to the skills.
 
@@ -22,15 +22,17 @@ It writes into the repo you run it in:
 | `domain.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
 | An `## Agent skills` block | whichever of `CLAUDE.md` / `AGENTS.md` already exists |
+| An output-language line | inside the `## Agent skills` block, when a Chinese tier is chosen |
 
 All of it is committed markdown. There is no user-level or global mode: the config lives in the repo, so every repo gets its own copy.
 
-## The three decisions
+## The four decisions
 
-It leads each section with the recommended answer, and skips whatever exploration already settled. Most runs are two confirmations and done.
+It leads each section with the recommended answer, and skips whatever exploration already settled. Most runs are two or three confirmations and done.
 
 | Decision | What it proposes | When it actually asks |
 | --- | --- | --- |
+| **Language** | English, the original behaviour; a Chinese tier on request | always, on a fresh run — skipped when the existing `docs/agents/` files already reveal the language |
 | **Issue tracker** | the one matching your `git remote` | always — this is the one real choice |
 | **Triage labels** | keep the five canonical names (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) | only if the `triage` skill is installed |
 | **Domain docs** | single-context: one `CONTEXT.md` plus `docs/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `CONTEXT-MAP.md` |
@@ -58,6 +60,10 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 Asked directly after v1.1, Matt said yes. The skill's own closing message is softer — it tells you re-running is only needed to switch trackers or start over. Both are defensible and the reason for the gap is real: the seed templates change between versions, so a `docs/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
 
+**Can I make the skills output Chinese?**
+
+Per repo, at setup time. The language section offers three tiers: **全中文** — generated docs and skill outputs in Chinese, and the tracker's label values become Chinese strings recorded as an authoritative label table; **中文，标签值保留英文** — Chinese docs and outputs, English label values; or **英文** — the original behaviour. The output-language line lands in the `## Agent skills` block, so every session in that repo answers in Chinese without being asked. Change it later by editing that line or the docs files; nothing else in the skill set changes.
+
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 
 Known gap, still open. The file-selection rule is "edit `CLAUDE.md` if it exists, else `AGENTS.md`" — it checks which file exists, not which [harness](https://www.aihero.dev/ai-coding-dictionary/harness) is running. A repo with a `CLAUDE.md` left over from Claude Code will get its `## Agent skills` block somewhere Codex never reads. Two workarounds are in circulation: move the block to `AGENTS.md` by hand, or keep `AGENTS.md` canonical and make `CLAUDE.md` a one-line pointer at it. If neither file exists, the skill asks you which to create rather than picking, which has confused people who expected it to just decide.
@@ -71,7 +77,7 @@ It doesn't. `docs/agents/triage-labels.md` is a *mapping* — it tells `/triage`
 
 **Can I configure the other skills' behaviour here — [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) cadence, question format, tone?**
 
-No. It configures three things: tracker, labels, doc layout. There have been direct requests to make it the home for per-user preferences, and the standing answer is that skills stay opinionated: *"Config is death."* Preferences belong in your `CLAUDE.md` as plain instructions, which every skill already reads.
+It configures four things: tracker, labels, doc layout, and the repo's output language. The language is the one per-repo preference it holds; everything else — grilling cadence, question format, tone — is still refused, and the standing answer is that skills stay opinionated: *"Config is death."* Preferences belong in your `CLAUDE.md` as plain instructions, which every skill already reads.
 
 **Can I keep the config in `~/.claude` instead of committing it to every repo?**
 
@@ -87,6 +93,7 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 - An `## Agent skills` section appears in the instruction file your harness actually reads, with a one-line summary pointing at each of those files.
 - The tracker it proposed matches the remote you really use, and the label strings match labels that really exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.
+- In a Chinese-configured repo, sessions answer in Chinese unprompted — skill outputs, summaries and reports come back in Chinese without being asked.
 - Nothing in the skill files themselves changed. If setup edited a `SKILL.md`, something went wrong.
 
 ## Where it fits

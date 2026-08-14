@@ -9,10 +9,18 @@ Issues and specs for this repo live as GitLab issues. Use the [`glab`](https://g
 - **List issues**: `glab issue list -F json` with appropriate `--label` filters.
 - **Comment on an issue**: `glab issue note <number> --message "..."`. GitLab calls comments "notes".
 - **Apply / remove labels**: `glab issue update <number> --label "..."` / `--unlabel "..."`. Multiple labels can be comma-separated or by repeating the flag.
-- **Close**: `glab issue close <number>`. `glab issue close` does not accept a closing comment, so post the explanation first with `glab issue note <number> --message "..."`, then close.
+- **Close**: `glab issue close <number>`. `glab issue close` does not accept a closing comment, so post the explanation first with `glab issue note <number> --message "..."`, then close — and tick the acceptance criteria before closing, see "Closing an issue" below.
 - **Merge requests**: GitLab calls PRs "merge requests". Use `glab mr create`, `glab mr view`, `glab mr note`, etc. — the same shape as `gh pr ...` with `mr` in place of `pr` and `note`/`--message` in place of `comment`/`--body`.
 
 Infer the repo from `git remote -v` — `glab` does this automatically when run inside a clone.
+
+## Closing an issue — tick the acceptance criteria first
+
+GitLab renders `- [ ]` / `- [x]` in an issue description as a task checklist, and the `N/M tasks completed` stat follows the checkboxes alone — independently of whether the issue is open or closed. Closing an issue with unticked boxes leaves it showing `0 of 4 tasks completed` on a done ticket, which misleads anyone reading the tracker. So every close path, in order:
+
+1. **Tick the completed criteria.** Fetch the issue's full description (`glab issue view <number>`), flip every met `- [ ]` to `- [x]`, and write it back with `glab issue update <number> --description "<full description>"` (heredoc for multi-line; leave everything else byte-for-byte). If any acceptance criterion is still unmet, the issue is not done — don't close it.
+2. **Close explicitly — no auto-close.** Never rely on `Closes #<n>` in a commit message to close the issue: auto-close fires with no chance to tick the boxes or verify. Post the closing explanation first with `glab issue note <number> --message "..."` (the `close` command accepts no comment), then `glab issue close <number>`.
+3. **Self-check after closing.** `glab issue view <number> -F json` and confirm `task_completion_status.completed_count == task_completion_status.count`. If not, re-tick and update the description, then close again.
 
 ## Merge requests as a triage surface
 
@@ -43,4 +51,4 @@ Used by `/wayfinder`. The **map** is a single issue with **child** issues as tic
 - **Blocking**: GitLab's **native blocking link** — the canonical, UI-visible representation. Add it with the `/blocked_by #<n>` quick action, posted as a note (`glab issue note <child> --message "/blocked_by #<blocker>"`). Native blocking links are a Premium/Ultimate feature; on the free tier (or where unavailable) fall back to a `Blocked by: #<n>, #<n>` line at the top of the description. A ticket is unblocked when every blocker is closed.
 - **Frontier query**: `glab issue list -F json` scoped to the map's children, drop any with an open blocker — a native `blocked_by` link to an open issue (`glab api projects/:id/issues/:iid/links`), or an open issue in the `Blocked by` line — or an assignee; first in map order wins.
 - **Claim**: `glab issue update <n> --assignee @me` — the session's first write.
-- **Resolve**: `glab issue note <n> --message "<answer>"`, then `glab issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
+- **Resolve**: tick the ticket's acceptance criteria first (`glab issue update <n> --description ...` — see "Closing an issue — tick the acceptance criteria first"), then `glab issue note <n> --message "<answer>"`, then `glab issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
